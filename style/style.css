@@ -50,3 +50,13 @@ canvas {
     border-radius: 9px;
     border-color: black;
 }
+
+#list :hover {
+    cursor: pointer;
+    background-color: #7185de;
+}
+
+
+#list :active {
+    font-weight: bold;  
+}

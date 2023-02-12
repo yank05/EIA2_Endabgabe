@@ -5,9 +5,5 @@ namespace Firework {
         constructor(_name: string) {
             this.name = _name;
         }
-
-        triggerCreation(): void {
-        
-        }
     }
 }

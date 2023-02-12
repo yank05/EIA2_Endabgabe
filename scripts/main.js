@@ -23,7 +23,6 @@ var Firework;
         let data = JSON.parse(item);
         generateContent(data);
     }
-    ;
     function generateContent(_data) {
         let keys = Object.keys(_data.data);
         for (let index = 0; index < keys.length; index++) {
@@ -101,7 +100,7 @@ var Firework;
         let input4 = document.getElementById("strength");
         input4.setAttribute("value", (object.strength).toString());
         let input5 = document.getElementById("name");
-        input5.innerHTML = object.name;
+        input5.setAttribute("value", object.name);
     }
 })(Firework || (Firework = {}));
 //# sourceMappingURL=main.js.map

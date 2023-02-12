@@ -7,9 +7,7 @@ namespace Firework {
     let interval; 
     let startTime: number; 
     let length: number; 
-  
-
-
+    
     interface Data {
         [id: number]: CreationData[]; 
     }
@@ -47,9 +45,7 @@ namespace Firework {
         let data: ReturnedJSON = JSON.parse(item);
 
         generateContent(data); 
-
-
-    };
+    }
 
     function generateContent(_data: ReturnedJSON): void {
         let keys: string[] = Object.keys(_data.data);
@@ -68,10 +64,7 @@ namespace Firework {
             list.appendChild(listObject);
             listObject.addEventListener("click", generatePresets);
             listObject.setAttribute("id", index.toString()); 
-        }
-
-            
-
+        }          
     }
 
     async function saveIt(): Promise<void> {
@@ -100,7 +93,6 @@ namespace Firework {
             alert("Error! Try again!");
                 }
     }
-
 
     function canvasClick(_event: MouseEvent): void {
         let formData: FormData = new FormData(document.querySelector("form")); 
@@ -135,9 +127,7 @@ namespace Firework {
         for (let newExplosion of particles) {
             newExplosion.move(1 / 2); 
         }
-            
         }
-
 
     function generatePresets(event): void {
         let id: number = event.target.id; 
@@ -156,8 +146,7 @@ namespace Firework {
         input4.setAttribute("value", (object.strength).toString()); 
 
         let input5: HTMLElement = document.getElementById("name"); 
-        input5.innerHTML = object.name; 
-
+        input5.setAttribute("value", object.name); 
     }
 }
 

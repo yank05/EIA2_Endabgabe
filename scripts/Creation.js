@@ -5,8 +5,6 @@ var Firework;
         constructor(_name) {
             this.name = _name;
         }
-        triggerCreation() {
-        }
     }
     Firework.Creation = Creation;
 })(Firework || (Firework = {}));
