@@ -44,7 +44,7 @@ namespace Firework {
         let item: string = await response.text();
         let data: ReturnedJSON = JSON.parse(item);
 
-        generateContent(data); 
+        generateContent(data); 3
     }
 
     function generateContent(_data: ReturnedJSON): void {
