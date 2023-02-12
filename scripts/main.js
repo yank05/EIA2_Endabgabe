@@ -53,8 +53,6 @@ var Firework;
         let item = await response0.text();
         let data = JSON.parse(item);
         let keys = Object.keys(data.data);
-        console.log(keys);
-        console.log(identifyer);
         let id = keys[identifyer];
         let query = new URLSearchParams();
         query.set("command", "delete");

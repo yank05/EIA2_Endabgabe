@@ -85,8 +85,6 @@ namespace Firework {
         let data: ReturnedJSON = JSON.parse(item);
 
         let keys: string[] = Object.keys(data.data);
-        console.log(keys); 
-        console.log(identifyer); 
         let id: string = keys[identifyer];
         let query: URLSearchParams = new URLSearchParams(); 
         query.set("command", "delete");
@@ -167,10 +165,7 @@ namespace Firework {
             let newExplosion: Explosion = new Explosion(color, length, range, strength); 
             let clickPosition: Vector = new Vector(_event.offsetX, _event.offsetY);
             newExplosion.position = clickPosition; 
-
-            particles.push(newExplosion); 
-            
-            
+            particles.push(newExplosion);        
         }
         interval = setInterval(update, 100); 
         startTime = Date.now();

@@ -6,7 +6,6 @@ namespace Firework {
         strength: number;
         position: Vector; 
         declare name: string;
-        counter: number = 0; 
 
         constructor( _color: string, _length: number, _range: number, _strength: number, _name?: string) {  
             super(_name);  
