@@ -5,6 +5,8 @@ var Firework;
     let fireworks = [];
     let particles = [];
     let interval;
+    let startTime;
+    let length;
     function handleLoad() {
         getSavedCreations();
         let saveButton = document.getElementById("save");
@@ -61,7 +63,7 @@ var Firework;
     function canvasClick(_event) {
         let formData = new FormData(document.querySelector("form"));
         let color = (formData.get("color")).toString();
-        let length = parseInt((formData.get("length")).toString());
+        length = parseInt((formData.get("length")).toString());
         let range = parseInt((formData.get("range")).toString());
         let strength = parseInt((formData.get("strength")).toString());
         for (let index = 0; index < strength; index++) {
@@ -71,16 +73,20 @@ var Firework;
             particles.push(newExplosion);
         }
         interval = setInterval(update, 100);
+        startTime = Date.now();
     }
     function update() {
         Firework.crc2.fillStyle = "rgba(0, 0, 0, 0.3)";
         Firework.crc2.fillRect(0, 0, Firework.crc2.canvas.width, Firework.crc2.canvas.height);
+        if (Date.now() - startTime >= length) {
+            setTimeout(() => {
+                clearInterval(interval);
+                Firework.crc2.clearRect(0, 0, Firework.crc2.canvas.width, Firework.crc2.canvas.height);
+                particles.splice(0);
+            });
+        }
         for (let newExplosion of particles) {
             newExplosion.move(1 / 2);
-        }
-        let startTime = Date.now();
-        if (Date.now() - startTime >= 5000) {
-            clearInterval(interval);
         }
     }
     function generatePresets(event) {

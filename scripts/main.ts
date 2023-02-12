@@ -5,6 +5,8 @@ namespace Firework {
     let fireworks: Creation[] = []; 
     let particles: Explosion[] = []; 
     let interval; 
+    let startTime: number; 
+    let length: number; 
   
 
 
@@ -103,7 +105,7 @@ namespace Firework {
     function canvasClick(_event: MouseEvent): void {
         let formData: FormData = new FormData(document.querySelector("form")); 
         let color: string = (formData.get("color")).toString();
-        let length: number = parseInt((formData.get("length")).toString());
+        length = parseInt((formData.get("length")).toString());
         let range: number = parseInt((formData.get("range")).toString());
         let strength: number = parseInt((formData.get("strength")).toString()); 
 
@@ -117,19 +119,22 @@ namespace Firework {
             
         }
         interval = setInterval(update, 100); 
+        startTime = Date.now();
     }
 
     function update(): void {
         crc2.fillStyle = "rgba(0, 0, 0, 0.3)"; 
         crc2.fillRect(0, 0, crc2.canvas.width, crc2.canvas.height);
+        if (Date.now() - startTime >= length) {
+            setTimeout(() => {
+                clearInterval(interval);
+                crc2.clearRect(0, 0, crc2.canvas.width, crc2.canvas.height); 
+                particles.splice(0); 
+            });
+        }
         for (let newExplosion of particles) {
-            newExplosion.move(1 / 2)
+            newExplosion.move(1 / 2); 
         }
-        let startTime: number = Date.now();
-        if (Date.now() - startTime >= 5000) {
-            clearInterval(interval);
-        }
-           
             
         }
 
