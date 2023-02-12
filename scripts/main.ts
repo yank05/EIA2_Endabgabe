@@ -4,9 +4,6 @@ namespace Firework {
     const url: string = "https://webuser.hs-furtwangen.de/~koenigya/Database/index.php/";
     let fireworks: Creation[] = []; 
 
-    interface ReturnedJSON {
-
-    }
 
     interface Data {
         [id: number]: CreationData[]; 
@@ -65,7 +62,7 @@ namespace Firework {
 
             list.appendChild(listObject);
             listObject.addEventListener("click", generatePresets);
-            console.log(object);
+            listObject.setAttribute("id", index.toString()); 
         }
 
             
@@ -97,7 +94,6 @@ namespace Firework {
         query.set("data", JSON.stringify(json));
         let response: Response = await fetch(url + "?" + query.toString());
         let responseText: string = await response.text();
-        console.log()
         if (responseText.includes("success")) {
             alert("Item added!"); 
         }
@@ -114,7 +110,25 @@ namespace Firework {
 
     };
 
-    function generatePresets(): void {
+    function generatePresets(event): void {
+        let id: number = event.target.id; 
+        let object: Explosion = <Explosion>fireworks[id]; 
+        
+        let input1: HTMLElement = document.getElementById("color");
+        input1.setAttribute("value", object.color); 
+
+        let input2: HTMLElement = document.getElementById("length");
+        input2.setAttribute("value", (object.length).toString()); 
+
+        let input3: HTMLElement = document.getElementById("range");
+        input3.setAttribute("value", (object.range).toString()); 
+
+        let input4: HTMLElement = document.getElementById("strength"); 
+        input4.setAttribute("value", (object.strength).toString()); 
+
+        let input5: HTMLElement = document.getElementById("name"); 
+        input5.innerHTML = object.name; 
+        console.log(object.name); 
 
     }
 }

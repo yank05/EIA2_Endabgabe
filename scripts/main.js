@@ -33,7 +33,7 @@ var Firework;
             listObject.innerHTML = object.name;
             list.appendChild(listObject);
             listObject.addEventListener("click", generatePresets);
-            console.log(object);
+            listObject.setAttribute("id", index.toString());
         }
     }
     async function saveIt() {
@@ -50,7 +50,6 @@ var Firework;
         query.set("data", JSON.stringify(json));
         let response = await fetch(url + "?" + query.toString());
         let responseText = await response.text();
-        console.log();
         if (responseText.includes("success")) {
             alert("Item added!");
         }
@@ -63,7 +62,20 @@ var Firework;
     function canvasClick() {
     }
     ;
-    function generatePresets() {
+    function generatePresets(event) {
+        let id = event.target.id;
+        let object = fireworks[id];
+        let input1 = document.getElementById("color");
+        input1.setAttribute("value", object.color);
+        let input2 = document.getElementById("length");
+        input2.setAttribute("value", (object.length).toString());
+        let input3 = document.getElementById("range");
+        input3.setAttribute("value", (object.range).toString());
+        let input4 = document.getElementById("strength");
+        input4.setAttribute("value", (object.strength).toString());
+        let input5 = document.getElementById("name");
+        input5.innerHTML = object.name;
+        console.log(object.name);
     }
 })(Firework || (Firework = {}));
 //# sourceMappingURL=main.js.map
