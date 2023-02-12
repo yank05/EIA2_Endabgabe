@@ -1,10 +1,11 @@
 namespace Firework {
     export abstract class Creation {
+        name: string;
 
-        saveCreation(): void {
-
+        constructor(_name: string) {
+            this.name = _name;
         }
-
+        
         triggerCreation(): void {
             
         }

@@ -74,13 +74,12 @@ namespace Firework {
 
     async function saveIt(): Promise<void> {
         let formData: FormData = new FormData(document.querySelector("form")); 
-        let name: string = (formData.get("name")).toString();
-        let color: string = (formData.get("color")).toString();
-        let length: number = parseInt((formData.get("length")).toString());
-        let range: number = parseInt((formData.get("range")).toString());
-        let strength: number = parseInt((formData.get("strength")).toString()); 
+        // let name: string = (formData.get("name")).toString();
+        // let color: string = (formData.get("color")).toString();
+        // let length: number = parseInt((formData.get("length")).toString());
+        // let range: number = parseInt((formData.get("range")).toString());
+        // let strength: number = parseInt((formData.get("strength")).toString()); 
 
-        let creationToSave: Creation = new Explosion(color, length, range, strength, name); 
         
         interface FormDataJSON {
             [key: string]: FormDataEntryValue | FormDataEntryValue[];
@@ -94,7 +93,7 @@ namespace Firework {
 
         let query: URLSearchParams = new URLSearchParams(); 
         query.set("command", "insert");
-        query.set("collection", "dataList");
+        query.set("collection", "Creations");
         query.set("data", JSON.stringify(json));
         let response: Response = await fetch(url + "?" + query.toString());
         let responseText: string = await response.text();
