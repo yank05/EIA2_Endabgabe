@@ -4,7 +4,7 @@ namespace Firework {
     const url: string = "https://webuser.hs-furtwangen.de/~koenigya/Database/index.php/";
     let fireworks: Creation[] = []; 
     let particles: Explosion[] = []; 
-    let interval; 
+    let interval: number; 
     let startTime: number; 
     let length: number; 
     
@@ -28,7 +28,7 @@ namespace Firework {
     function handleLoad(): void {
         getSavedCreations();
 
-        let saveButton = document.getElementById("save"); 
+        let saveButton: HTMLElement = document.getElementById("save"); 
         saveButton.addEventListener("click", saveIt); 
 
         let canvas: HTMLCanvasElement | null = document.querySelector("canvas");
@@ -64,7 +64,45 @@ namespace Firework {
             list.appendChild(listObject);
             listObject.addEventListener("click", generatePresets);
             listObject.setAttribute("id", index.toString()); 
+
+            let deleteButton: HTMLElement = document.createElement("button"); 
+            deleteButton.setAttribute("type", "button");
+            let id: string = "delete" + index;
+            deleteButton.setAttribute("id", id);
+            deleteButton.addEventListener("click", deleteObject);
+            deleteButton.innerHTML = "Löschen"; 
+            listObject.appendChild(deleteButton); 
         }          
+    }
+
+    async function deleteObject(_event: Event): Promise<void> {
+        let trigger: string = (_event.target as HTMLButtonElement).id; 
+        let triggerNum: string = trigger.replace(/\D/g, "");
+        let identifyer: number = parseInt(triggerNum);
+
+        let response0: Response = await fetch(url + "?command=find&collection=Creations"); 
+        let item: string = await response0.text();
+        let data: ReturnedJSON = JSON.parse(item);
+
+        let keys: string[] = Object.keys(data.data);
+        console.log(keys); 
+        console.log(identifyer); 
+        let id: string = keys[identifyer];
+        let query: URLSearchParams = new URLSearchParams(); 
+        query.set("command", "delete");
+        query.set("collection", "Creations");
+        query.set("id", id); 
+        let response1: Response = await fetch(url + "?" + query.toString());
+        let responseText: string = await response1.text();
+
+        if (responseText.includes("success")) {
+            alert("Deine Kreation wurde gelöscht!"); 
+            window.location.reload(); 
+        }
+        else {
+            alert("Error! Try again!");
+                }
+    
     }
 
     async function saveIt(): Promise<void> {
@@ -87,11 +125,35 @@ namespace Firework {
         let response: Response = await fetch(url + "?" + query.toString());
         let responseText: string = await response.text();
         if (responseText.includes("success")) {
-            alert("Item added!"); 
+            alert("Deine Kreation wurde gespeichert!"); 
+            window.location.reload(); 
         }
         else {
             alert("Error! Try again!");
                 }
+    }
+
+    function generatePresets(_event: MouseEvent): void {
+        let target: HTMLElement = (_event.target as HTMLElement); 
+        if (target.tagName != "BUTTON") {
+        let id: number = parseInt((_event.target as HTMLButtonElement).id); 
+        let object: Explosion = <Explosion>fireworks[id]; 
+        
+        let input1: HTMLElement = document.getElementById("color");
+        input1.setAttribute("value", object.color); 
+
+        let input2: HTMLElement = document.getElementById("length");
+        input2.setAttribute("value", (object.length).toString()); 
+
+        let input3: HTMLElement = document.getElementById("range");
+        input3.setAttribute("value", (object.range).toString()); 
+
+        let input4: HTMLElement = document.getElementById("strength"); 
+        input4.setAttribute("value", (object.strength).toString()); 
+
+        let input5: HTMLElement = document.getElementById("name"); 
+        input5.setAttribute("value", object.name); 
+        }
     }
 
     function canvasClick(_event: MouseEvent): void {
@@ -128,26 +190,6 @@ namespace Firework {
             newExplosion.move(1 / 2); 
         }
         }
-
-    function generatePresets(event): void {
-        let id: number = event.target.id; 
-        let object: Explosion = <Explosion>fireworks[id]; 
-        
-        let input1: HTMLElement = document.getElementById("color");
-        input1.setAttribute("value", object.color); 
-
-        let input2: HTMLElement = document.getElementById("length");
-        input2.setAttribute("value", (object.length).toString()); 
-
-        let input3: HTMLElement = document.getElementById("range");
-        input3.setAttribute("value", (object.range).toString()); 
-
-        let input4: HTMLElement = document.getElementById("strength"); 
-        input4.setAttribute("value", (object.strength).toString()); 
-
-        let input5: HTMLElement = document.getElementById("name"); 
-        input5.setAttribute("value", object.name); 
-    }
 }
 
 

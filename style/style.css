@@ -60,3 +60,18 @@ canvas {
 #list :active {
     font-weight: bold;  
 }
+
+ul li {
+    margin: 20px;
+}
+
+ul li button {
+    margin-left: 15px; 
+    font-size: large;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    border-style: solid;
+    border-width: 2px;
+    border-radius: 9px;
+    border-color: black;
+
+  }
