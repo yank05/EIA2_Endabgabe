@@ -36,21 +36,41 @@ var Firework;
             console.log(object);
         }
     }
-    function saveIt() {
+    async function saveIt() {
         let formData = new FormData(document.querySelector("form"));
         let name = (formData.get("name")).toString();
         let color = (formData.get("color")).toString();
         let length = parseInt((formData.get("length")).toString());
         let range = parseInt((formData.get("range")).toString());
         let strength = parseInt((formData.get("strength")).toString());
-        let creationToSave = new Firework.Explosion();
-        creationToSave.saveCreation();
-    }
-    ;
-    function canvasClick() {
-    }
-    ;
-    function generatePresets() {
+        let creationToSave = new Firework.Explosion(color, length, range, strength, name);
+        let json = {};
+        for (let key of formData.keys())
+            if (!json[key]) {
+                let values = formData.getAll(key);
+                json[key] = values.length > 1 ? values : values[0];
+            }
+        let query = new URLSearchParams();
+        query.set("command", "insert");
+        query.set("collection", "dataList");
+        query.set("data", JSON.stringify(json));
+        let response = await fetch(url + "?" + query.toString());
+        let responseText = await response.text();
+        console.log();
+        if (responseText.includes("success")) {
+            alert("Item added!");
+        }
+        else {
+            alert("Error! Try again!");
+        }
     }
 })(Firework || (Firework = {}));
+;
+function saveCreation(_save) {
+}
+function canvasClick() {
+}
+;
+function generatePresets() {
+}
 //# sourceMappingURL=main.js.map

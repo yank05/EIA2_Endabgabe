@@ -72,7 +72,7 @@ namespace Firework {
 
     }
 
-    function saveIt(): void {
+    async function saveIt(): Promise<void> {
         let formData: FormData = new FormData(document.querySelector("form")); 
         let name: string = (formData.get("name")).toString();
         let color: string = (formData.get("color")).toString();
@@ -80,9 +80,38 @@ namespace Firework {
         let range: number = parseInt((formData.get("range")).toString());
         let strength: number = parseInt((formData.get("strength")).toString()); 
 
-        let creationToSave: Explosion = new Explosion(); 
-        creationToSave.saveCreation(); 
+        let creationToSave: Creation = new Explosion(color, length, range, strength, name); 
+        
+        interface FormDataJSON {
+            [key: string]: FormDataEntryValue | FormDataEntryValue[];
+          }
+        let json: FormDataJSON = {};
+        for (let key of formData.keys())
+            if (!json[key]) {
+              let values: FormDataEntryValue[] = formData.getAll(key);
+              json[key] = values.length > 1 ? values : values[0];
+            } 
+
+        let query: URLSearchParams = new URLSearchParams(); 
+        query.set("command", "insert");
+        query.set("collection", "dataList");
+        query.set("data", JSON.stringify(json));
+        let response: Response = await fetch(url + "?" + query.toString());
+        let responseText: string = await response.text();
+        console.log()
+        if (responseText.includes("success")) {
+            alert("Item added!"); 
+        }
+        else {
+            alert("Error! Try again!");
+                }
+    }
+
     }; 
+
+    function saveCreation(_save: Creation): void {
+
+    }
 
     function canvasClick(): void {
 

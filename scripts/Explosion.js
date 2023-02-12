@@ -1,13 +1,19 @@
 var Firework;
 (function (Firework) {
-    class Explosion {
+    class Explosion extends Firework.Creation {
         name;
         color;
         length;
         range;
         strength;
         position;
-        constructor(_color, _length, _range, _strength) {
+        constructor(_color, _length, _range, _strength, _name) {
+            if (_name) {
+                super(_name);
+            }
+            else {
+                super(Firework.Creation.name);
+            }
             this.color = _color;
             this.length = _length;
             this.range = _range;

@@ -7,14 +7,18 @@ namespace Firework {
         strength: number;
         position: Vector; 
 
-        constructor(_name: string, _color: string, _length: number, _range: number, _strength: number) {  
-            super(); 
-            this.name = _name;      
+        constructor( _color: string, _length: number, _range: number, _strength: number, _name?: string) {  
+            if (_name) {
+                super(_name);  
+            }
+            else {
+                super(Creation.name);
+            }
+  
             this.color = _color;
             this.length = _length;
             this.range = _range;
-            this.strength = _strength;
-            
+            this.strength = _strength;  
         }
 
         triggerExplosion() {
