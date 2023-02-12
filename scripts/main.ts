@@ -1,3 +1,13 @@
+/*
+Aufgabe: Endabgabe Firework
+Name: Yannik König
+Matrikel: 271124
+Datum: 12.02.2023
+In Zusammenarbeit mit Jonas Atzenhofer, Vector.js sowie Algorithmus zur Umwandlung der FormData in eine JSON für den Server
+von Jirka Dell’Oro-Friedl
+*/
+
+
 namespace Firework {
     window.addEventListener("load", handleLoad);
     export let crc2: CanvasRenderingContext2D; 
