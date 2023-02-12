@@ -1,10 +1,6 @@
 var Firework;
 (function (Firework) {
     class Creation {
-        name;
-        constructor(_name) {
-            this.name = _name;
-        }
         saveCreation() {
         }
         triggerCreation() {

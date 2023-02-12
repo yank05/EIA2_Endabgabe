@@ -80,8 +80,8 @@ namespace Firework {
         let range: number = parseInt((formData.get("range")).toString());
         let strength: number = parseInt((formData.get("strength")).toString()); 
 
-        let CreationToSave: Creation; 
-        CreationToSave.saveCreation(); 
+        let creationToSave: Explosion = new Explosion(); 
+        creationToSave.saveCreation(); 
     }; 
 
     function canvasClick(): void {

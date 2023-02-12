@@ -43,8 +43,8 @@ var Firework;
         let length = parseInt((formData.get("length")).toString());
         let range = parseInt((formData.get("range")).toString());
         let strength = parseInt((formData.get("strength")).toString());
-        let CreationToSave;
-        CreationToSave.saveCreation();
+        let creationToSave = new Firework.Explosion();
+        creationToSave.saveCreation();
     }
     ;
     function canvasClick() {

@@ -1,5 +1,5 @@
 namespace Firework {
-    export class Explosion {
+    export class Explosion extends Creation {
         name: string; 
         color: string; 
         length: number;
@@ -7,7 +7,9 @@ namespace Firework {
         strength: number;
         position: Vector; 
 
-        constructor(_color: string, _length: number, _range: number, _strength: number) {       
+        constructor(_name: string, _color: string, _length: number, _range: number, _strength: number) {  
+            super(); 
+            this.name = _name;      
             this.color = _color;
             this.length = _length;
             this.range = _range;
