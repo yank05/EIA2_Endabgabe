@@ -15,14 +15,17 @@ var Firework;
         let x = _event.offsetX;
         let y = _event.offsetY;
         console.log(x, y);
-        crc2.strokeStyle = "blue";
-        crc2.lineWidth = 10;
-        crc2.resetTransform();
-        crc2.beginPath();
-        crc2.moveTo(x, y);
-        crc2.lineTo((x + 100), (y + 100));
-        crc2.closePath();
-        crc2.stroke();
+        for (let index = 0; index < 100; index++) {
+            crc2.strokeStyle = "blue";
+            crc2.lineWidth = 10;
+            crc2.resetTransform();
+            crc2.beginPath();
+            crc2.moveTo(x, y);
+            crc2.lineTo(index, index);
+            crc2.closePath();
+            crc2.stroke();
+            console.log("100");
+        }
     }
 })(Firework || (Firework = {}));
 //# sourceMappingURL=main.js.map
