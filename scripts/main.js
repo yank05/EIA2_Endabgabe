@@ -58,13 +58,12 @@ var Firework;
             alert("Error! Try again!");
         }
     }
+    function saveCreation(_save) {
+    }
+    function canvasClick() {
+    }
+    ;
+    function generatePresets() {
+    }
 })(Firework || (Firework = {}));
-;
-function saveCreation(_save) {
-}
-function canvasClick() {
-}
-;
-function generatePresets() {
-}
 //# sourceMappingURL=main.js.map

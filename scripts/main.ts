@@ -106,8 +106,6 @@ namespace Firework {
                 }
     }
 
-    }; 
-
     function saveCreation(_save: Creation): void {
 
     }

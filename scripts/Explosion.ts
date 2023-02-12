@@ -1,6 +1,5 @@
 namespace Firework {
     export class Explosion extends Creation {
-        name: string; 
         color: string; 
         length: number;
         range: number;

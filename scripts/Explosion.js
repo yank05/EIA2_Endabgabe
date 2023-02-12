@@ -1,7 +1,6 @@
 var Firework;
 (function (Firework) {
     class Explosion extends Firework.Creation {
-        name;
         color;
         length;
         range;
