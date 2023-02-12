@@ -2,8 +2,8 @@ var Firework;
 (function (Firework) {
     window.addEventListener("load", handleLoad);
     let crc2;
-    const url = "webuser.hs-furtwangen.de/~koenigya";
-    let fireworks;
+    const url = "https://webuser.hs-furtwangen.de/~koenigya/Database/index.php/";
+    let fireworks = [];
     function handleLoad() {
         getSavedCreations();
         let saveButton = document.getElementById("save");
@@ -26,9 +26,14 @@ var Firework;
         for (let index = 0; index < keys.length; index++) {
             let item = _data.data[keys[index]];
             fireworks.push(item);
-            let Object = fireworks[index];
-            document.getElementById("list");
-            let list = Object.name;
+            console.log(fireworks);
+            let object = fireworks[index];
+            let list = document.getElementById("list");
+            let listObject = document.createElement("li");
+            listObject.innerHTML = object.name;
+            list.appendChild(listObject);
+            listObject.addEventListener("click", generatePresets);
+            console.log(object);
         }
     }
     function saveIt() {
@@ -37,5 +42,7 @@ var Firework;
     function canvasClick() {
     }
     ;
+    function generatePresets() {
+    }
 })(Firework || (Firework = {}));
 //# sourceMappingURL=main.js.map

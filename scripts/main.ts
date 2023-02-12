@@ -1,18 +1,18 @@
 namespace Firework {
     window.addEventListener("load", handleLoad);
     let crc2: CanvasRenderingContext2D; 
-    const url: string = "webuser.hs-furtwangen.de/~koenigya";
-    let fireworks: Creation[]; 
+    const url: string = "https://webuser.hs-furtwangen.de/~koenigya/Database/index.php/";
+    let fireworks: Creation[] = []; 
 
     interface ReturnedJSON {
 
     }
 
     interface Data {
-        [id: number]: ItemAdded[]; 
+        [id: number]: CreationData[]; 
     }
 
-    interface ItemAdded {
+    interface CreationData {
         name: string;
         color: number;
         length: number; 
@@ -51,19 +51,26 @@ namespace Firework {
 
     function generateContent(_data: ReturnedJSON): void {
         let keys: string[] = Object.keys(_data.data);
+
         for (let index: number = 0; index < keys.length; index++) {
 
             let item: Explosion = _data.data[keys[index]];  
-            fireworks.push(item); 
+            fireworks.push(item);
+            console.log(fireworks);  
 
-            let Object: Creation = fireworks[index];
-            document.getElementById("list");
-            let list = 
-            Object.name
+            let object: Creation = fireworks[index];
+            let list: HTMLElement = document.getElementById("list");
+            let listObject: HTMLElement = document.createElement("li");
+            listObject.innerHTML = object.name; 
+
+            list.appendChild(listObject);
+            listObject.addEventListener("click", generatePresets);
+            console.log(object);
+        }
+
+            
 
     }
-    }
-
 
     function saveIt(): void {
 
@@ -72,4 +79,10 @@ namespace Firework {
     function canvasClick(): void {
 
     };
+
+    function generatePresets(): void {
+        
+    }
+}
+
 
