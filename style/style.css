@@ -8,8 +8,6 @@ h1 {
 canvas {
     margin-left: 20px;
     display: inline-block;
-    height: 700px;
-    width: 60%;
     border-style: solid;
     border-width: 2px;
     border-color: black;
