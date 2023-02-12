@@ -6,6 +6,7 @@ var Firework;
         range;
         strength;
         position;
+        counter = 0;
         constructor(_color, _length, _range, _strength, _name) {
             super(_name);
             if (_name) {
@@ -20,7 +21,7 @@ var Firework;
             let start = Firework.crc2.getTransform();
             let explosion = new Path2D();
             let gradient = Firework.crc2.createRadialGradient(0, 0, 0, 0, 0, 10);
-            explosion.arc(0, 0, 10, 0, 2 * Math.PI);
+            explosion.arc(0, 0, this.range, 0, 2 * Math.PI);
             gradient.addColorStop(1, this.color);
             Firework.crc2.fillStyle = gradient;
             Firework.crc2.save();
@@ -28,7 +29,14 @@ var Firework;
             Firework.crc2.fill(explosion);
             Firework.crc2.restore();
             Firework.crc2.setTransform(start);
-            console.log("Hallo");
+        }
+        move(_step) {
+            let radius = Firework.crc2.canvas.width / 2;
+            let angle = Math.random() * 2 * Math.PI;
+            let offset = new Firework.Vector((radius * Math.cos(angle) / 8), (radius * Math.sin(angle) / 8));
+            offset.scale(_step);
+            this.position.add(offset);
+            this.triggerExplosion();
         }
     }
     Firework.Explosion = Explosion;

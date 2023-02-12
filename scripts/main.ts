@@ -3,6 +3,9 @@ namespace Firework {
     export let crc2: CanvasRenderingContext2D; 
     const url: string = "https://webuser.hs-furtwangen.de/~koenigya/Database/index.php/";
     let fireworks: Creation[] = []; 
+    let particles: Explosion[] = []; 
+    let interval; 
+  
 
 
     interface Data {
@@ -96,9 +99,6 @@ namespace Firework {
                 }
     }
 
-    function saveCreation(_save: Creation): void {
-
-    }
 
     function canvasClick(_event: MouseEvent): void {
         let formData: FormData = new FormData(document.querySelector("form")); 
@@ -107,12 +107,32 @@ namespace Firework {
         let range: number = parseInt((formData.get("range")).toString());
         let strength: number = parseInt((formData.get("strength")).toString()); 
 
-        let newExplosion: Explosion = new Explosion(color, length, range, strength); 
-        let clickPosition: Vector = new Vector(_event.offsetX, _event.offsetY);
-        newExplosion.position = clickPosition; 
+        for (let index = 0; index < strength; index++) {
+            let newExplosion: Explosion = new Explosion(color, length, range, strength); 
+            let clickPosition: Vector = new Vector(_event.offsetX, _event.offsetY);
+            newExplosion.position = clickPosition; 
 
-        newExplosion.triggerExplosion(); 
-    };
+            particles.push(newExplosion); 
+            
+            
+        }
+        interval = setInterval(update, 100); 
+    }
+
+    function update(): void {
+        crc2.fillStyle = "rgba(0, 0, 0, 0.3)"; 
+        crc2.fillRect(0, 0, crc2.canvas.width, crc2.canvas.height);
+        for (let newExplosion of particles) {
+            newExplosion.move(1 / 2)
+        }
+        let startTime: number = Date.now();
+        if (Date.now() - startTime >= 5000) {
+            clearInterval(interval);
+        }
+           
+            
+        }
+
 
     function generatePresets(event): void {
         let id: number = event.target.id; 
@@ -132,9 +152,9 @@ namespace Firework {
 
         let input5: HTMLElement = document.getElementById("name"); 
         input5.innerHTML = object.name; 
-        console.log(object.name); 
 
     }
 }
+
 
 

@@ -3,6 +3,8 @@ var Firework;
     window.addEventListener("load", handleLoad);
     const url = "https://webuser.hs-furtwangen.de/~koenigya/Database/index.php/";
     let fireworks = [];
+    let particles = [];
+    let interval;
     function handleLoad() {
         getSavedCreations();
         let saveButton = document.getElementById("save");
@@ -56,20 +58,31 @@ var Firework;
             alert("Error! Try again!");
         }
     }
-    function saveCreation(_save) {
-    }
     function canvasClick(_event) {
         let formData = new FormData(document.querySelector("form"));
         let color = (formData.get("color")).toString();
         let length = parseInt((formData.get("length")).toString());
         let range = parseInt((formData.get("range")).toString());
         let strength = parseInt((formData.get("strength")).toString());
-        let newExplosion = new Firework.Explosion(color, length, range, strength);
-        let clickPosition = new Firework.Vector(_event.offsetX, _event.offsetY);
-        newExplosion.position = clickPosition;
-        newExplosion.triggerExplosion();
+        for (let index = 0; index < strength; index++) {
+            let newExplosion = new Firework.Explosion(color, length, range, strength);
+            let clickPosition = new Firework.Vector(_event.offsetX, _event.offsetY);
+            newExplosion.position = clickPosition;
+            particles.push(newExplosion);
+        }
+        interval = setInterval(update, 100);
     }
-    ;
+    function update() {
+        Firework.crc2.fillStyle = "rgba(0, 0, 0, 0.3)";
+        Firework.crc2.fillRect(0, 0, Firework.crc2.canvas.width, Firework.crc2.canvas.height);
+        for (let newExplosion of particles) {
+            newExplosion.move(1 / 2);
+        }
+        let startTime = Date.now();
+        if (Date.now() - startTime >= 5000) {
+            clearInterval(interval);
+        }
+    }
     function generatePresets(event) {
         let id = event.target.id;
         let object = fireworks[id];
@@ -83,7 +96,6 @@ var Firework;
         input4.setAttribute("value", (object.strength).toString());
         let input5 = document.getElementById("name");
         input5.innerHTML = object.name;
-        console.log(object.name);
     }
 })(Firework || (Firework = {}));
 //# sourceMappingURL=main.js.map
