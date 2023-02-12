@@ -7,8 +7,6 @@ var Firework;
         }
         saveCreation() {
         }
-        getCreation() {
-        }
         triggerCreation() {
         }
     }

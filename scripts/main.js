@@ -2,30 +2,40 @@ var Firework;
 (function (Firework) {
     window.addEventListener("load", handleLoad);
     let crc2;
+    const url = "webuser.hs-furtwangen.de/~koenigya";
+    let fireworks;
     function handleLoad() {
+        getSavedCreations();
+        let saveButton = document.getElementById("save");
+        saveButton.addEventListener("click", saveIt);
         let canvas = document.querySelector("canvas");
         if (!canvas)
             return;
         crc2 = canvas.getContext("2d");
-        let canvasHTML = document.querySelector("canvas");
-        canvasHTML.addEventListener("click", testDraw);
-        console.log("lol");
+        canvas.addEventListener("click", canvasClick);
     }
-    function testDraw(_event) {
-        let x = _event.offsetX;
-        let y = _event.offsetY;
-        console.log(x, y);
-        for (let index = 0; index < 100; index++) {
-            crc2.strokeStyle = "blue";
-            crc2.lineWidth = 10;
-            crc2.resetTransform();
-            crc2.beginPath();
-            crc2.moveTo(x, y);
-            crc2.lineTo(index, index);
-            crc2.closePath();
-            crc2.stroke();
-            console.log("100");
+    async function getSavedCreations() {
+        let response = await fetch(url + "?command=find&collection=Creations");
+        let item = await response.text();
+        let data = JSON.parse(item);
+        generateContent(data);
+    }
+    ;
+    function generateContent(_data) {
+        let keys = Object.keys(_data.data);
+        for (let index = 0; index < keys.length; index++) {
+            let item = _data.data[keys[index]];
+            fireworks.push(item);
+            let Object = fireworks[index];
+            document.getElementById("list");
+            let list = Object.name;
         }
     }
+    function saveIt() {
+    }
+    ;
+    function canvasClick() {
+    }
+    ;
 })(Firework || (Firework = {}));
 //# sourceMappingURL=main.js.map

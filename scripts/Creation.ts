@@ -8,11 +8,7 @@ namespace Firework {
         saveCreation() {
 
         }
-
-        getCreation() {
-
-        }
-
+        
         triggerCreation() {
             
         }

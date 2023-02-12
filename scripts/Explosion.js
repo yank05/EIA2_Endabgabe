@@ -7,6 +7,12 @@ var Firework;
         strength;
         position;
         constructor(_color, _movement, _range, _strength, _position) {
+            super(Firework.Creation.name);
+            this.color = _color;
+            this.movement = _movement;
+            this.range = _range;
+            this.strength = _strength;
+            this.position = _position;
         }
         triggerExplosion() {
         }
