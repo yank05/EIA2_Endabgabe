@@ -5,11 +5,11 @@ namespace Firework {
         constructor(_name: string) {
             this.name = _name; 
         }
-        saveCreation() {
+        saveCreation(): void {
 
         }
-        
-        triggerCreation() {
+
+        triggerCreation(): void {
             
         }
     }

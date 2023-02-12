@@ -73,7 +73,15 @@ namespace Firework {
     }
 
     function saveIt(): void {
+        let formData: FormData = new FormData(document.querySelector("form")); 
+        let name: string = (formData.get("name")).toString();
+        let color: string = (formData.get("color")).toString();
+        let length: number = parseInt((formData.get("length")).toString());
+        let range: number = parseInt((formData.get("range")).toString());
+        let strength: number = parseInt((formData.get("strength")).toString()); 
 
+        let CreationToSave: Creation; 
+        CreationToSave.saveCreation(); 
     }; 
 
     function canvasClick(): void {
@@ -81,7 +89,7 @@ namespace Firework {
     };
 
     function generatePresets(): void {
-        
+
     }
 }
 

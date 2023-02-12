@@ -37,6 +37,14 @@ var Firework;
         }
     }
     function saveIt() {
+        let formData = new FormData(document.querySelector("form"));
+        let name = (formData.get("name")).toString();
+        let color = (formData.get("color")).toString();
+        let length = parseInt((formData.get("length")).toString());
+        let range = parseInt((formData.get("range")).toString());
+        let strength = parseInt((formData.get("strength")).toString());
+        let CreationToSave;
+        CreationToSave.saveCreation();
     }
     ;
     function canvasClick() {
