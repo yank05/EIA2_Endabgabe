@@ -1,6 +1,6 @@
 namespace Firework {
     window.addEventListener("load", handleLoad);
-    let crc2: CanvasRenderingContext2D; 
+    export let crc2: CanvasRenderingContext2D; 
     const url: string = "https://webuser.hs-furtwangen.de/~koenigya/Database/index.php/";
     let fireworks: Creation[] = []; 
 
@@ -71,12 +71,6 @@ namespace Firework {
 
     async function saveIt(): Promise<void> {
         let formData: FormData = new FormData(document.querySelector("form")); 
-        // let name: string = (formData.get("name")).toString();
-        // let color: string = (formData.get("color")).toString();
-        // let length: number = parseInt((formData.get("length")).toString());
-        // let range: number = parseInt((formData.get("range")).toString());
-        // let strength: number = parseInt((formData.get("strength")).toString()); 
-
         
         interface FormDataJSON {
             [key: string]: FormDataEntryValue | FormDataEntryValue[];
@@ -106,8 +100,18 @@ namespace Firework {
 
     }
 
-    function canvasClick(): void {
+    function canvasClick(_event: MouseEvent): void {
+        let formData: FormData = new FormData(document.querySelector("form")); 
+        let color: string = (formData.get("color")).toString();
+        let length: number = parseInt((formData.get("length")).toString());
+        let range: number = parseInt((formData.get("range")).toString());
+        let strength: number = parseInt((formData.get("strength")).toString()); 
 
+        let newExplosion: Explosion = new Explosion(color, length, range, strength); 
+        let clickPosition: Vector = new Vector(_event.offsetX, _event.offsetY);
+        newExplosion.position = clickPosition; 
+
+        newExplosion.triggerExplosion(); 
     };
 
     function generatePresets(event): void {

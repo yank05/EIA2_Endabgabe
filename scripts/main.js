@@ -1,7 +1,6 @@
 var Firework;
 (function (Firework) {
     window.addEventListener("load", handleLoad);
-    let crc2;
     const url = "https://webuser.hs-furtwangen.de/~koenigya/Database/index.php/";
     let fireworks = [];
     function handleLoad() {
@@ -11,7 +10,7 @@ var Firework;
         let canvas = document.querySelector("canvas");
         if (!canvas)
             return;
-        crc2 = canvas.getContext("2d");
+        Firework.crc2 = canvas.getContext("2d");
         canvas.addEventListener("click", canvasClick);
     }
     async function getSavedCreations() {
@@ -59,7 +58,16 @@ var Firework;
     }
     function saveCreation(_save) {
     }
-    function canvasClick() {
+    function canvasClick(_event) {
+        let formData = new FormData(document.querySelector("form"));
+        let color = (formData.get("color")).toString();
+        let length = parseInt((formData.get("length")).toString());
+        let range = parseInt((formData.get("range")).toString());
+        let strength = parseInt((formData.get("strength")).toString());
+        let newExplosion = new Firework.Explosion(color, length, range, strength);
+        let clickPosition = new Firework.Vector(_event.offsetX, _event.offsetY);
+        newExplosion.position = clickPosition;
+        newExplosion.triggerExplosion();
     }
     ;
     function generatePresets(event) {
